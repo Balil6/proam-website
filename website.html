@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Amateur, Hybrid Performance Coaching and Programming by Will</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --black:#0a0a0a;
+ --white:#f5f4f0;
+ --grey:#1a1a1a;
+ --mid:#2e2e2e;
+ --muted:#6b6b62;
+ --border:#222;
+ --accent:#f5f4f0;
+ --font-display:'Bebas Neue',sans-serif;
+ --font-body:'DM Sans',sans-serif;
+ --font-mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 40px;border-bottom:1px solid transparent;transition:all 0.3s}
+nav.scrolled{background:rgba(10,10,10,0.95);border-bottom-color:var(--border);backdrop-filter:blur(10px)}
+.nav-brand{font-family:var(--font-display);font-size:22px;letter-spacing:0.06em;color:var(--white);text-decoration:none}
+.nav-brand span{opacity:0.4}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--white);color:var(--black);padding:9px 20px;font-size:12px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s}
+.nav-cta:hover{opacity:0.85}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--white);transition:all 0.3s}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 40px 80px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(160deg,#0a0a0a 40%,#141414 100%)}
+.hero-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,0.02) 59px,rgba(255,255,255,0.02) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,0.02) 59px,rgba(255,255,255,0.02) 60px)}
+.hero-monogram{position:absolute;top:-60px;right:-40px;font-family:var(--font-display);font-size:520px;line-height:1;color:rgba(245,244,240,0.03);pointer-events:none;user-select:none;letter-spacing:-0.04em}
+.hero-tag{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:24px}
+.hero-tag span{color:var(--white);opacity:0.5}
+.hero-headline{font-family:var(--font-display);font-size:clamp(64px,9vw,130px);line-height:0.9;letter-spacing:0.01em;margin-bottom:32px;max-width:900px}
+.hero-headline em{font-style:normal;color:var(--muted)}
+.hero-sub{font-size:16px;color:var(--muted);max-width:480px;line-height:1.7;margin-bottom:48px;font-weight:300}
+.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn-primary{background:var(--white);color:var(--black);padding:14px 32px;font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:opacity 0.2s;cursor:pointer;border:none;font-family:var(--font-body)}
+.btn-primary:hover{opacity:0.85}
+.btn-ghost{border:1px solid rgba(245,244,240,0.2);color:var(--white);padding:14px 32px;font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all 0.2s;cursor:pointer;background:transparent;font-family:var(--font-body)}
+.btn-ghost:hover{border-color:var(--white);background:rgba(245,244,240,0.05)}
+.hero-stats{position:absolute;right:40px;bottom:80px;display:flex;flex-direction:column;gap:32px;text-align:right}
+.hero-stat-num{font-family:var(--font-display);font-size:48px;line-height:1;letter-spacing:0.02em}
+.hero-stat-label{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase;margin-top:2px}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0.3}
+.hero-scroll span{font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase}
+.hero-scroll-line{width:1px;height:40px;background:var(--white);animation:scrollpulse 2s ease-in-out infinite}
+@keyframes scrollpulse{0%,100%{opacity:0.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(0.6)}}
+
+/* ── SERVICES ── */
+#services{padding:120px 40px}
+.page-header{margin-bottom:80px}
+.page-label{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px}
+.page-title{font-family:var(--font-display);font-size:clamp(48px,6vw,88px);line-height:0.9;letter-spacing:0.01em}
+.page-title em{font-style:normal;color:var(--muted)}
+.free-week-banner{border:1px solid rgba(245,244,240,0.15);padding:24px 32px;margin-bottom:60px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.free-week-left{display:flex;align-items:center;gap:16px}
+.free-badge{background:var(--white);color:var(--black);font-family:var(--font-display);font-size:13px;padding:4px 10px;letter-spacing:0.08em;white-space:nowrap}
+.free-week-text{font-size:14px;color:var(--muted);line-height:1.5}
+.free-week-text strong{color:var(--white);font-weight:500}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--border);margin-bottom:80px}
+.tier{background:var(--black);padding:40px 36px;position:relative;transition:background 0.2s}
+.tier:hover{background:#111}
+.tier.featured{background:#111}
+.tier-tag{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px}
+.tier.featured .tier-tag{color:var(--white)}
+.tier-name{font-family:var(--font-display);font-size:36px;letter-spacing:0.02em;margin-bottom:8px}
+.tier-price{margin-bottom:24px}
+.tier-amount{font-family:var(--font-display);font-size:52px;line-height:1;letter-spacing:0.01em}
+.tier-period{font-size:13px;color:var(--muted);font-weight:300;margin-left:4px}
+.tier-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:28px;font-weight:300}
+.tier-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:36px}
+.tier-features li{font-size:13px;color:var(--muted);padding-left:16px;position:relative;font-weight:300;line-height:1.5}
+.tier-features li::before{content:'—';position:absolute;left:0;color:rgba(245,244,240,0.3)}
+.tier-features li strong{color:var(--white);font-weight:500}
+.tier-cta{width:100%}
+.tier.featured .tier-cta{background:var(--white);color:var(--black)}
+.tier.featured .tier-cta:hover{opacity:0.85}
+
+/* ── ABOUT ── */
+#about{padding:120px 40px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1100px}
+.about-left{}
+.about-statement{font-family:var(--font-display);font-size:clamp(36px,4vw,58px);line-height:1;letter-spacing:0.01em;margin-bottom:40px}
+.about-statement em{font-style:normal;color:var(--muted)}
+.about-body{font-size:15px;color:var(--muted);line-height:1.8;font-weight:300;display:flex;flex-direction:column;gap:16px}
+.about-body strong{color:var(--white);font-weight:500}
+.about-right{padding-top:8px}
+.about-credentials{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.credential{background:var(--black);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.credential-label{font-size:13px;font-weight:500;color:var(--white)}
+.credential-value{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:0.06em;text-align:right}
+.about-quote{margin-top:40px;padding:28px;border-left:2px solid rgba(245,244,240,0.15)}
+.about-quote p{font-size:15px;color:var(--muted);line-height:1.8;font-weight:300;font-style:italic}
+.about-quote p strong{color:var(--white);font-style:normal;font-weight:500}
+
+/* ── CONTACT / INTAKE ── */
+#contact{padding:120px 40px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1100px}
+.contact-left{}
+.contact-intro{font-size:15px;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:40px}
+.contact-details{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.contact-detail{background:var(--black);padding:18px 24px;display:flex;justify-content:space-between;align-items:center}
+.contact-detail-label{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+.contact-detail-value{font-size:13px;color:var(--white);font-weight:500}
+.form-container{}
+.form-label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}
+.form-title{font-family:var(--font-display);font-size:32px;letter-spacing:0.02em}
+.form-free{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;border:1px solid var(--border);padding:4px 10px}
+.intake-form{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.form-field{background:var(--black);display:flex;flex-direction:column}
+.form-field label{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;padding:16px 20px 0}
+.form-field input,.form-field select,.form-field textarea{background:transparent;border:none;color:var(--white);font-family:var(--font-body);font-size:14px;font-weight:400;padding:8px 20px 16px;outline:none;width:100%}
+.form-field input::placeholder,.form-field textarea::placeholder{color:rgba(245,244,240,0.2)}
+.form-field select{-webkit-appearance:none;cursor:pointer}
+.form-field select option{background:var(--grey);color:var(--white)}
+.form-field textarea{resize:vertical;min-height:80px}
+.form-field:focus-within{background:#111}
+.form-tiers{background:var(--black);padding:16px 20px;display:flex;flex-direction:column;gap:8px}
+.form-tier-label{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px}
+.tier-radio{display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0}
+.tier-radio input{accent-color:var(--white);width:14px;height:14px;cursor:pointer}
+.tier-radio span{font-size:13px;color:var(--muted);font-weight:300}
+.tier-radio span strong{color:var(--white);font-weight:500}
+.tier-radio:hover span{color:var(--white)}
+.form-submit{margin-top:1px}
+.form-submit button{width:100%;background:var(--white);color:var(--black);border:none;padding:18px;font-family:var(--font-display);font-size:18px;letter-spacing:0.1em;cursor:pointer;transition:opacity 0.2s}
+.form-submit button:hover{opacity:0.85}
+.form-note{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:0.08em;text-align:center;padding:12px;background:var(--black)}
+.form-success{display:none;padding:40px;text-align:center;background:#111;border:1px solid var(--border)}
+.form-success h3{font-family:var(--font-display);font-size:32px;letter-spacing:0.02em;margin-bottom:12px}
+.form-success p{font-size:14px;color:var(--muted);font-weight:300;line-height:1.7}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap}
+.footer-brand{font-family:var(--font-display);font-size:18px;letter-spacing:0.06em;opacity:0.4}
+.footer-copy{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:0.08em}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-family:var(--font-mono);font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s}
+.footer-links a:hover{color:var(--white)}
+
+
+/* ── BLOG ── */
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--border);margin-top:60px}
+.blog-card{background:var(--black);padding:36px;cursor:pointer;transition:background 0.2s;display:flex;flex-direction:column;gap:16px}
+.blog-card:hover{background:#111}
+.blog-card.featured{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.blog-card-meta{display:flex;align-items:center;gap:16px}
+.blog-tag{font-family:var(--font-mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;border:1px solid var(--border);color:var(--muted)}
+.blog-date{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:0.08em}
+.blog-title{font-family:var(--font-display);font-size:28px;letter-spacing:0.01em;line-height:1.1}
+.blog-card.featured .blog-title{font-size:42px}
+.blog-excerpt{font-size:14px;color:var(--muted);line-height:1.7;font-weight:300}
+.blog-read{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:auto}
+.blog-card:hover .blog-read{color:var(--white)}
+.blog-visual{aspect-ratio:16/9;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.blog-visual-text{font-family:var(--font-display);font-size:80px;color:rgba(245,244,240,0.06);letter-spacing:-0.02em;user-select:none}
+
+/* ── BLOG POST ── */
+.post-back{font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:8px;margin-bottom:48px;background:none;border:none;padding:0;transition:color 0.2s}
+.post-back:hover{color:var(--white)}
+.post-header{max-width:720px;margin-bottom:60px}
+.post-meta{display:flex;gap:16px;align-items:center;margin-bottom:24px}
+.post-headline{font-family:var(--font-display);font-size:clamp(40px,5vw,72px);line-height:0.95;letter-spacing:0.01em;margin-bottom:24px}
+.post-intro{font-size:18px;color:var(--muted);line-height:1.7;font-weight:300}
+.post-body{max-width:680px;display:flex;flex-direction:column;gap:24px}
+.post-body p{font-size:16px;color:var(--muted);line-height:1.8;font-weight:300}
+.post-body p strong{color:var(--white);font-weight:500}
+.post-body h3{font-family:var(--font-display);font-size:28px;letter-spacing:0.01em;margin-top:16px}
+.post-body ul{list-style:none;display:flex;flex-direction:column;gap:8px;padding:0}
+.post-body ul li{font-size:15px;color:var(--muted);padding-left:18px;position:relative;font-weight:300;line-height:1.6}
+.post-body ul li::before{content:"—";position:absolute;left:0;color:rgba(245,244,240,0.3)}
+.post-body blockquote{border-left:2px solid rgba(245,244,240,0.2);padding:16px 24px;margin:8px 0}
+.post-body blockquote p{font-size:17px;font-style:italic}
+.post-divider{width:40px;height:2px;background:rgba(245,244,240,0.15);margin:8px 0}
+.post-cta{margin-top:48px;padding:32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.post-cta-text h4{font-family:var(--font-display);font-size:24px;letter-spacing:0.01em;margin-bottom:6px}
+.post-cta-text p{font-size:13px;color:var(--muted);font-weight:300}
+
+/* ── ANIMATIONS ── */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+ nav{padding:16px 20px}
+ .nav-links,.nav-cta{display:none}
+ .nav-hamburger{display:flex}
+ #hero{padding:0 20px 60px}
+ .hero-stats{display:none}
+ .hero-monogram{font-size:280px;right:-20px;top:-20px}
+ #services,#about,#contact{padding:80px 20px}
+ .about-grid,.contact-grid{grid-template-columns:1fr;gap:48px}
+ .tiers{grid-template-columns:1fr}
+ footer{flex-direction:column;gap:16px;text-align:center;padding:24px 20px}
+ .free-week-banner{flex-direction:column;align-items:flex-start}
+}
+
+/* ── MOBILE NAV ── */
+.mobile-nav{display:none;position:fixed;inset:0;background:var(--black);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{font-family:var(--font-display);font-size:48px;letter-spacing:0.04em;color:var(--white);text-decoration:none;opacity:0.6;transition:opacity 0.2s}
+.mobile-nav a:hover{opacity:1}
+.mobile-nav-close{position:absolute;top:20px;right:20px;background:none;border:none;color:var(--white);font-size:24px;cursor:pointer;padding:8px}
+</style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+ <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+ <a href="#" onclick="showPage('hero');closeMobileNav()">Home</a>
+ <a href="#" onclick="showPage('services');closeMobileNav()">Services</a>
+ <a href="#" onclick="showPage('about');closeMobileNav()">About</a>
+ <a href="#" onclick="showPage('blog');closeMobileNav()">Blog</a>
+ <a href="#" onclick="showPage('contact');closeMobileNav()">Start Free Week</a>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+ <a class="nav-brand" href="#" onclick="showPage('hero')">PRO.AM</a>
+ <ul class="nav-links">
+  <li><a href="#" onclick="showPage('services')">Services</a></li>
+  <li><a href="#" onclick="showPage('about')">About</a></li>
+  <li><a href="#" onclick="showPage('blog')">Blog</a></li>
+    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+ </ul>
+ <a class="nav-cta" href="#" onclick="showPage('contact')">Start Free Week</a>
+ <div class="nav-hamburger" onclick="openMobileNav()">
+  <span></span><span></span><span></span>
+ </div>
+</nav>
+
+<!-- ═══════════════ HERO PAGE ═══════════════ -->
+<div id="hero" class="page active">
+ <div class="hero-bg"></div>
+ <div class="hero-grid"></div>
+ <div class="hero-monogram">PA</div>
+
+ <div style="position:relative;z-index:1">
+  <p class="hero-tag">Professional Amateur · Hybrid Performance Coaching and Programming</p>
+  <h1 class="hero-headline">
+   Train like a<br><em>professional.</em><br>Proudly<br><em>amateur.</em>
+  </h1>
+  <p class="hero-sub">Expert coaching for people who train seriously around a full time job and full time responsibilities.</p>
+  <div class="hero-actions">
+   <a class="btn-primary" href="#" onclick="showPage('contact')">Start your free week</a>
+   <a class="btn-ghost" href="#" onclick="showPage('services')">View programmes</a>
+  </div>
+ </div>
+
+ <div class="hero-stats">
+  <div>
+   <div class="hero-stat-num">10+</div>
+   <div class="hero-stat-label">Years training</div>
+  </div>
+  <div>
+   <div class="hero-stat-num">L3</div>
+   <div class="hero-stat-label">Qualified PT</div>
+  </div>
+  <div>
+   <div class="hero-stat-num">26.2</div>
+   <div class="hero-stat-label">Marathon miles</div>
+  </div>
+ </div>
+
+ <div class="hero-scroll">
+  <span>Scroll</span>
+  <div class="hero-scroll-line"></div>
+ </div>
+</div>
+
+<!-- ═══════════════ SERVICES PAGE ═══════════════ -->
+<div id="services" class="page">
+ <div style="padding-top:100px">
+  <div class="page-header fade-up">
+   <p class="page-label">What we offer</p>
+   <h2 class="page-title">Programmes <em>&</em><br>Coaching</h2>
+  </div>
+
+  <div class="free-week-banner fade-up">
+   <div class="free-week-left">
+    <div class="free-badge">FREE WEEK</div>
+    <div class="free-week-text">
+     <strong>Every programme starts with a free week.</strong><br>
+     Experience the coaching before you commit. No card required.
+    </div>
+   </div>
+   <a class="btn-primary" href="#" onclick="showPage('contact')">Claim your free week</a>
+  </div>
+
+  <div class="tiers fade-up">
+
+   <!-- TIER 1 -->
+   <div class="tier">
+    <p class="tier-tag">Tier 01</p>
+    <h3 class="tier-name">The Programme</h3>
+    <div class="tier-price">
+     <span class="tier-amount">£99</span>
+     <span class="tier-period">one-off</span>
+    </div>
+    <p class="tier-desc">A complete custom 12-week programme built around your goals, schedule and available equipment. Yours to keep.</p>
+    <ul class="tier-features">
+     <li><strong>Free first week</strong> included</li>
+     <li>Custom 12-week hybrid programme</li>
+     <li>Full coaching cues on every exercise</li>
+     <li>Tempo guidance and technique notes</li>
+     <li>PDF delivery. Train anywhere.</li>
+     <li>One round of revisions included</li>
+    </ul>
+    <a class="btn-ghost tier-cta" href="#" onclick="showPage('contact')">Get started</a>
+   </div>
+
+   <!-- TIER 2 -->
+   <div class="tier featured">
+    <p class="tier-tag">Tier 02, Most popular</p>
+    <h3 class="tier-name">Programme<br>+ Check-ins</h3>
+    <div class="tier-price">
+     <span class="tier-amount">£99</span>
+     <span class="tier-period">/month</span>
+    </div>
+    <p class="tier-desc">Everything in the programme tier, plus regular communication and monthly adjustments to keep you progressing.</p>
+    <ul class="tier-features">
+     <li><strong>Free first week</strong> included</li>
+     <li>Custom 12-week hybrid programme</li>
+     <li><strong>Weekly check-in</strong> via WhatsApp or email</li>
+     <li>Monthly programme review and update</li>
+     <li>Nutrition guidance</li>
+     <li>Direct access to Will for questions</li>
+    </ul>
+    <a class="btn-primary tier-cta" href="#" onclick="showPage('contact')">Get started</a>
+   </div>
+
+   <!-- TIER 3 -->
+   <div class="tier">
+    <p class="tier-tag">Tier 03, Limited spaces</p>
+    <h3 class="tier-name">Full<br>Coaching</h3>
+    <div class="tier-price">
+     <span class="tier-amount">£199</span>
+     <span class="tier-period">/month</span>
+    </div>
+    <p class="tier-desc">The complete coaching experience. For athletes who want full access and maximum accountability.</p>
+    <ul class="tier-features">
+     <li><strong>Free first week</strong> included</li>
+     <li>Everything in Programme and Check-ins</li>
+     <li><strong>Fortnightly 30-minute video call</strong></li>
+     <li>Ongoing programme adjustments</li>
+     <li>Full access. 24-hour response.</li>
+     <li>Priority client. Limited spaces.</li>
+    </ul>
+    <a class="btn-ghost tier-cta" href="#" onclick="showPage('contact')">Apply now</a>
+   </div>
+
+  </div>
+
+  <div class="free-week-banner fade-up" style="margin-bottom:0">
+   <div class="free-week-text" style="font-size:15px">
+    <strong>Not sure which tier is right for you?</strong><br>
+    Start with the free week and we will figure it out together.
+   </div>
+   <a class="btn-ghost" href="#" onclick="showPage('contact')">Start free →</a>
+  </div>
+ </div>
+
+ <footer style="margin-top:80px">
+  <div class="footer-brand">PRO.AM</div>
+  <div class="footer-links">
+   <a href="#" onclick="showPage('hero')">Home</a>
+   <a href="#" onclick="showPage('services')">Services</a>
+   <a href="#" onclick="showPage('about')">About</a>
+   <a href="#" onclick="showPage('contact')">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 Professional Amateur</div>
+ </footer>
+</div>
+
+<!-- ═══════════════ ABOUT PAGE ═══════════════ -->
+<div id="about" class="page">
+ <div style="padding-top:100px">
+
+  <!-- PHILOSOPHY SECTION, leads the page -->
+  <div style="max-width:1100px;margin-bottom:100px" class="fade-up">
+   <p class="page-label">The Pro.am philosophy</p>
+   <h2 class="about-statement">Excellence in training.<br><em>Without giving up</em><br>everything else.</h2>
+
+   <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:48px">
+    <div class="about-body">
+     <p>Pro.am exists for one type of person. Someone who wants to pursue excellence in their training, not just show up and go through the motions, but genuinely optimise, progress, and perform at the highest level they are capable of.</p>
+     <p>That person also has a full time job. A schedule that doesn't bend easily. Responsibilities that come first. <strong>The ambition is professional. The circumstances are not.</strong></p>
+     <p>Most coaching programmes are built for people who have unlimited time, unlimited recovery, and no life outside the gym. That is not who we work with. <strong>We take the guesswork out of training for people who cannot afford to waste a session.</strong></p>
+     <p>Every programme we build is fully optimised, the right exercises, the right volume, the right progression, so that every hour you spend training counts. No filler. No generic plans. No compromises on quality.</p>
+    </div>
+    <div class="about-body">
+     <div style="padding:32px;border:1px solid var(--border);margin-bottom:24px">
+      <p style="font-family:var(--font-display);font-size:28px;letter-spacing:0.02em;line-height:1.1;margin-bottom:16px">You should not have to choose between training seriously and living fully.</p>
+      <p style="font-size:14px;color:var(--muted);font-weight:300;line-height:1.7">That is the whole point. Pro.am is built on the belief that with the right programme and the right coaching, you can reach a level of performance that most people would call professional, around a full time job and full time responsibilities.</p>
+     </div>
+     <div style="padding:24px;background:#111;border:1px solid var(--border)">
+      <p style="font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px">What this means in practice</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
+       <li style="font-size:13px;color:var(--muted);font-weight:300;padding-left:16px;position:relative">
+        <span style="position:absolute;left:0;color:rgba(245,244,240,0.3)">—</span>
+        Programmes built around your schedule, not an ideal one
+       </li>
+       <li style="font-size:13px;color:var(--muted);font-weight:300;padding-left:16px;position:relative">
+        <span style="position:absolute;left:0;color:rgba(245,244,240,0.3)">—</span>
+        Every session has a purpose, nothing is filler
+       </li>
+       <li style="font-size:13px;color:var(--muted);font-weight:300;padding-left:16px;position:relative">
+        <span style="position:absolute;left:0;color:rgba(245,244,240,0.3)">—</span>
+        Progressive overload built in from week one
+       </li>
+       <li style="font-size:13px;color:var(--muted);font-weight:300;padding-left:16px;position:relative">
+        <span style="position:absolute;left:0;color:rgba(245,244,240,0.3)">—</span>
+        Strength and endurance treated as complementary, not competing
+       </li>
+       <li style="font-size:13px;color:var(--muted);font-weight:300;padding-left:16px;position:relative">
+        <span style="position:absolute;left:0;color:rgba(245,244,240,0.3)">—</span>
+        No guesswork, you know exactly what to do and why
+       </li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- WILL SECTION, condensed -->
+  <div style="border-top:1px solid var(--border);padding-top:80px;max-width:1100px" class="fade-up">
+   <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px">
+    <div>
+     <p class="page-label">About Will</p>
+     <h3 style="font-family:var(--font-display);font-size:42px;letter-spacing:0.01em;line-height:1;margin-bottom:28px">I built this because<br><span style="color:var(--muted)">I needed it.</span></h3>
+     <div class="about-body">
+      
+      
+      <p>For a long time I could not find the balance between getting stronger and training for endurance events. When one improved the other suffered. Every programme I tried treated them as opposing goals.</p>
+      <p>Having played rugby at a national and semi-professional level as a prop, strength had always come first for me. When my career was cut short by injury and I started taking endurance seriously I had to rethink how I trained entirely. It took years of trial and error to figure out that the problem was never the training itself. It was the programming. <strong>The two things are not incompatible. They just need to be built together properly.</strong></p>
+      <p>Once I got that right, the results followed. Training for endurance events while continuing to build strength. That is what Pro.am is built on.</p>
+      <p>I became a Level 3 qualified PT to give other people a faster route to the same place. <strong>Pro.am is the coaching I wish I had when I started.</strong></p>
+     </div>
+     <div style="margin-top:32px">
+      <a class="btn-primary" href="#" onclick="showPage('contact')" style="display:inline-block">Start your free week</a>
+     </div>
+    </div>
+
+    <div>
+     <div class="about-credentials">
+      <div class="credential">
+       <span class="credential-label">Qualification</span>
+       <span class="credential-value">Level 3 Personal Trainer</span>
+      </div>
+      <div class="credential">
+       <span class="credential-label">Experience</span>
+       <span class="credential-value">10+ years training</span>
+      </div>
+      
+      
+      <div class="credential">
+       <span class="credential-label">Specialism</span>
+       <span class="credential-value">Hybrid athlete programming</span>
+      </div>
+      <div class="credential">
+       <span class="credential-label">Coaching style</span>
+       <span class="credential-value">Evidence-based, direct, no filler</span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+ </div>
+
+ <footer style="margin-top:80px">
+  <div class="footer-brand">PRO.AM</div>
+  <div class="footer-links">
+   <a href="#" onclick="showPage('hero')">Home</a>
+   <a href="#" onclick="showPage('services')">Services</a>
+   <a href="#" onclick="showPage('about')">About</a>
+   <a href="#" onclick="showPage('contact')">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 Professional Amateur</div>
+ </footer>
+</div>
+
+<!-- ═══════════════ CONTACT PAGE ═══════════════ -->
+<div id="contact" class="page">
+ <div style="padding-top:100px">
+  <div class="contact-grid fade-up">
+
+   <div class="contact-left">
+    <p class="page-label">Get started</p>
+    <h2 class="page-title" style="font-size:clamp(40px,5vw,72px);margin-bottom:32px">Your free<br><em>week starts</em><br>here.</h2>
+    <p class="contact-intro">Fill in the form and Will will build you a personalised first week, completely free, no card required. It is the best way to experience the coaching before committing to anything.</p>
+
+    <div class="contact-details">
+     <div class="contact-detail">
+      <span class="contact-detail-label">Response time</span>
+      <span class="contact-detail-value">Within 24 hours</span>
+     </div>
+     <div class="contact-detail">
+      <span class="contact-detail-label">Free week delivery</span>
+      <span class="contact-detail-value">Within 48 hours</span>
+     </div>
+     <div class="contact-detail">
+      <span class="contact-detail-label">No card required</span>
+      <span class="contact-detail-value">Genuinely free</span>
+     </div>
+     <div class="contact-detail">
+      <span class="contact-detail-label">Email</span>
+      <span class="contact-detail-value">will@goproam.com</span>
+     </div>
+    </div>
+   </div>
+
+   <div class="form-container">
+    <div class="form-label-row">
+     <h3 class="form-title">Intake Form</h3>
+     <span class="form-free">First week free</span>
+    </div>
+
+    <div id="formSuccess" class="form-success">
+     <h3>You're in.</h3>
+     <p>Will has your details and will be in touch within 24 hours with your free week programme. Check your inbox, and your spam folder just in case.</p>
+    </div>
+
+    <form id="intakeForm" action="https://formspree.io/f/mkoypvle" method="POST" onsubmit="handleSubmit(event)">
+     <input type="hidden" name="_subject" value="New Professional Amateur free week signup">
+     <input type="hidden" name="_replyto" value="">
+
+     <div class="intake-form">
+      <div class="form-field">
+       <label>Full name *</label>
+       <input type="text" name="name" placeholder="Your name" required>
+      </div>
+
+      <div class="form-field">
+       <label>Email address *</label>
+       <input type="email" name="email" placeholder="your@email.com" required>
+      </div>
+
+      <div class="form-field">
+       <label>Age</label>
+       <input type="number" name="age" placeholder="e.g. 28" min="16" max="80">
+      </div>
+
+      <div class="form-field">
+       <label>Training background *</label>
+       <select name="training_background" required>
+        <option value="" disabled selected>Select your level...</option>
+        <option>Complete beginner</option>
+        <option>Some experience, less than 1 year</option>
+        <option>1-3 years consistent training</option>
+        <option>3 or more years, fairly experienced</option>
+        <option>Competitive athlete or advanced</option>
+       </select>
+      </div>
+
+      <div class="form-field">
+       <label>Primary goal *</label>
+       <select name="primary_goal" required>
+        <option value="" disabled selected>What matters most to you?</option>
+        <option>Get stronger, focus on lifting</option>
+        <option>Build muscle / improve body composition</option>
+        <option>Improve endurance / running</option>
+        <option>Hybrid, both strength and endurance</option>
+        <option>General fitness and health</option>
+        <option>Sport-specific performance</option>
+       </select>
+      </div>
+
+      <div class="form-field">
+       <label>Days available to train per week</label>
+       <select name="days_available">
+        <option value="" disabled selected>How many days?</option>
+        <option>2-3 days</option>
+        <option>4 days</option>
+        <option>5 days</option>
+        <option>6+ days</option>
+       </select>
+      </div>
+
+      <div class="form-field">
+       <label>Equipment access</label>
+       <select name="equipment">
+        <option value="" disabled selected>Where do you train?</option>
+        <option>Full commercial gym</option>
+        <option>Basic gym, limited equipment</option>
+        <option>Home gym, decent setup</option>
+        <option>Home, minimal equipment</option>
+        <option>Bodyweight only</option>
+       </select>
+      </div>
+
+      <div class="form-field">
+       <label>Any injuries or limitations we should know about</label>
+       <textarea name="injuries" placeholder="e.g. bad left knee, lower back history, nothing to declare"></textarea>
+      </div>
+
+      <div class="form-field">
+       <label>Anything else, goals, context, questions</label>
+       <textarea name="other" placeholder="Tell Will anything else that would help him build your programme..."></textarea>
+      </div>
+
+      <div class="form-tiers">
+       <p class="form-tier-label">Which tier are you interested in?</p>
+       <label class="tier-radio">
+        <input type="radio" name="tier_interest" value="The Programme, £99 one-off">
+        <span><strong>The Programme</strong>, £99 one-off</span>
+       </label>
+       <label class="tier-radio">
+        <input type="radio" name="tier_interest" value="Programme and Check-ins, £99 per month">
+        <span><strong>Programme + Check-ins</strong>, £99/month</span>
+       </label>
+       <label class="tier-radio">
+        <input type="radio" name="tier_interest" value="Full Coaching, £199 per month">
+        <span><strong>Full Coaching</strong>, £199/month</span>
+       </label>
+       <label class="tier-radio">
+        <input type="radio" name="tier_interest" value="Not sure yet, just want the free week" checked>
+        <span>Not sure yet, just want the free week</span>
+       </label>
+      </div>
+
+      <div class="form-submit">
+       <button type="submit">CLAIM FREE WEEK →</button>
+      </div>
+
+      <div class="form-note">No card required. No obligation. Will responds within 24 hours.</div>
+     </div>
+    </form>
+   </div>
+  </div>
+ </div>
+
+ <footer style="margin-top:80px">
+  <div class="footer-brand">PRO.AM</div>
+  <div class="footer-links">
+   <a href="#" onclick="showPage('hero')">Home</a>
+   <a href="#" onclick="showPage('services')">Services</a>
+   <a href="#" onclick="showPage('about')">About</a>
+   <a href="#" onclick="showPage('contact')">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 Professional Amateur</div>
+ </footer>
+</div>
+
+
+<!-- ═══════════════ BLOG PAGE ═══════════════ -->
+<div id="blog" class="page">
+  <div style="padding-top:100px">
+    <div class="page-header fade-up">
+      <p class="page-label">Thoughts on training</p>
+      <h2 class="page-title">The <em>Blog</em></h2>
+    </div>
+
+    <div class="blog-grid fade-up">
+
+      <!-- FEATURED POST -->
+      <div class="blog-card featured" onclick="showPost('post1')">
+        <div>
+          <div class="blog-card-meta">
+            <span class="blog-tag">Programming</span>
+            <span class="blog-date">May 2025</span>
+          </div>
+          <h3 class="blog-title">Why most hybrid programmes fail before week four</h3>
+          <p class="blog-excerpt">The problem is not commitment. It is not even the training. Most hybrid programmes are built by people who understand either strength or endurance, rarely both. Here is what actually goes wrong and how to fix it.</p>
+          <span class="blog-read">Read more →</span>
+        </div>
+        <div class="blog-visual">
+          <span class="blog-visual-text">PA</span>
+        </div>
+      </div>
+
+      <!-- POST 2 -->
+      <div class="blog-card" onclick="showPost('post2')">
+        <div class="blog-card-meta">
+          <span class="blog-tag">Progressive Overload</span>
+          <span class="blog-date">April 2025</span>
+        </div>
+        <h3 class="blog-title">The three ways to progress. Most people only use one.</h3>
+        <p class="blog-excerpt">Adding weight is the obvious one. But there are two others that most people ignore, and they are often more effective when you are training around a full schedule.</p>
+        <span class="blog-read">Read more →</span>
+      </div>
+
+      <!-- POST 3 -->
+      <div class="blog-card" onclick="showPost('post3')">
+        <div class="blog-card-meta">
+          <span class="blog-tag">Mindset</span>
+          <span class="blog-date">March 2025</span>
+        </div>
+        <h3 class="blog-title">You do not need more time. You need a better programme.</h3>
+        <p class="blog-excerpt">The number one reason people give for not training seriously is time. It is rarely the real problem. Here is what actually gets in the way and what to do about it.</p>
+        <span class="blog-read">Read more →</span>
+      </div>
+
+    </div>
+  </div>
+
+  <footer style="margin-top:80px">
+    <div class="footer-brand">PRO.AM</div>
+    <div class="footer-links">
+      <a href="#" onclick="showPage('hero')">Home</a>
+      <a href="#" onclick="showPage('services')">Services</a>
+      <a href="#" onclick="showPage('about')">About</a>
+      <a href="#" onclick="showPage('blog')">Blog</a>
+      <a href="#" onclick="showPage('contact')">Contact</a>
+    </div>
+    <div class="footer-copy">© 2025 Professional Amateur</div>
+  </footer>
+</div>
+
+<!-- ═══════════════ BLOG POST VIEW ═══════════════ -->
+<div id="post-view" class="page">
+  <div style="padding-top:100px;max-width:800px">
+
+    <button class="post-back" onclick="showPage('blog')">← Back to blog</button>
+
+    <!-- POST 1 -->
+    <div id="post1-content" style="display:none">
+      <div class="post-header">
+        <div class="post-meta">
+          <span class="blog-tag">Programming</span>
+          <span class="blog-date">May 2025</span>
+        </div>
+        <h1 class="post-headline">Why most hybrid programmes fail before week four</h1>
+        <p class="post-intro">The problem is not commitment. It is not even the training. Most hybrid programmes are built by people who understand either strength or endurance. Rarely both.</p>
+      </div>
+      <div class="post-divider"></div>
+      <div class="post-body">
+        <p>If you have ever tried to run and lift seriously at the same time, you will know the feeling. The first two weeks go well. You are fresh, motivated, and the programme feels manageable. Then week three arrives and something starts to slip.</p>
+        <p>Usually it is the running. The legs never quite recover between sessions. Or it is the lifting. The numbers stop moving because your body is always carrying fatigue from the cardio. Either way, by week four most people have quietly dropped one of the two.</p>
+        <h3>The problem is not you</h3>
+        <p>Most hybrid programmes are written by coaches who specialise in one discipline. A strength coach who adds some cardio. An endurance coach who throws in a few lifting sessions. The result is a programme that does not understand how the two types of training interact with each other.</p>
+        <p><strong>Strength training and endurance training create different demands on your body.</strong> When you lift heavy, you are creating mechanical stress on the muscles. When you run, you are creating metabolic stress on the same system. Stack them without thinking about the order, the volume, and the recovery, and they compete directly with each other.</p>
+        <h3>What actually works</h3>
+        <p>The fix is not complicated but it requires the programme to be built with both goals in mind from the start. Not strength first with some cardio bolted on. Not an endurance programme with a gym day added in. Both, designed together, sequenced properly.</p>
+        <ul>
+          <li>Hard strength sessions and hard cardio sessions should not sit back to back</li>
+          <li>Volume needs to be managed across the week as a whole, not session by session</li>
+          <li>The weeks need to be periodised so the body can absorb both types of stress</li>
+          <li>Recovery is not optional. It is where the adaptation happens.</li>
+        </ul>
+        <blockquote><p>The compromise people talk about between strength and endurance does not have to exist. It is a programming problem, not a physiological one.</p></blockquote>
+        <p>That is the foundation Pro.am is built on. If you want to see what a programme built with both goals in mind actually looks like, start with the free week.</p>
+      </div>
+      <div class="post-cta">
+        <div class="post-cta-text">
+          <h4>See it in practice</h4>
+          <p>Your first week is free. No card required.</p>
+        </div>
+        <a class="btn-primary" href="#" onclick="showPage('contact')">Start free week</a>
+      </div>
+    </div>
+
+    <!-- POST 2 -->
+    <div id="post2-content" style="display:none">
+      <div class="post-header">
+        <div class="post-meta">
+          <span class="blog-tag">Progressive Overload</span>
+          <span class="blog-date">April 2025</span>
+        </div>
+        <h1 class="post-headline">The three ways to progress. Most people only use one.</h1>
+        <p class="post-intro">Adding weight to the bar is the most obvious form of progressive overload. But it is not the only one, and when you are training around a busy schedule it is often not the most practical.</p>
+      </div>
+      <div class="post-divider"></div>
+      <div class="post-body">
+        <p>Progressive overload is the principle that your training needs to become harder over time for your body to keep adapting. Without it, you stop making progress. Most people understand this in theory. In practice, most people interpret it as one thing: add more weight.</p>
+        <p>That works. But it has limits. You cannot add weight to every lift every week indefinitely. At some point, and usually sooner than people expect, the numbers stop going up on that timeline.</p>
+        <h3>The three methods</h3>
+        <p><strong>Add weight.</strong> Same reps, heavier bar. The most direct form of overload. When your technique is solid and you hit the top of your rep range cleanly, add weight next session.</p>
+        <p><strong>Add reps.</strong> Same weight, one or two more reps than last time. This is the method to use when you are not quite ready to jump up in weight. It is underrated and often more appropriate, particularly later in a training block.</p>
+        <p><strong>Add exercises.</strong> Same weight and reps on each lift, more total work in the session. This is volume cycling, and it is the method most people ignore completely. Starting a programme with fewer exercises and building up across the weeks means you are doing more total work by week five than you were in week one. That is progress, even when the individual lift numbers have not moved.</p>
+        <h3>Which one to use</h3>
+        <p>The answer depends on where you are in the programme and how your body is responding. A well-built programme will tell you. The ones that do not are leaving progress on the table.</p>
+        <blockquote><p>Something must go up every week. Weight, reps, or exercises. Pick one. If none of the three are moving, something needs to change.</p></blockquote>
+      </div>
+      <div class="post-cta">
+        <div class="post-cta-text">
+          <h4>See it in practice</h4>
+          <p>Your first week is free. No card required.</p>
+        </div>
+        <a class="btn-primary" href="#" onclick="showPage('contact')">Start free week</a>
+      </div>
+    </div>
+
+    <!-- POST 3 -->
+    <div id="post3-content" style="display:none">
+      <div class="post-header">
+        <div class="post-meta">
+          <span class="blog-tag">Mindset</span>
+          <span class="blog-date">March 2025</span>
+        </div>
+        <h1 class="post-headline">You do not need more time. You need a better programme.</h1>
+        <p class="post-intro">Time is the reason most people give for not training as seriously as they want to. It is rarely the real problem.</p>
+      </div>
+      <div class="post-divider"></div>
+      <div class="post-body">
+        <p>Ask someone why their training is not where they want it to be and the answer is almost always the same. Not enough time. Too busy. Work gets in the way. The schedule does not allow for it.</p>
+        <p>There is some truth in this. Time is finite and training does take time. But most people who say they do not have enough time are not actually short on time. They are short on a programme that fits the time they have.</p>
+        <h3>The real problem</h3>
+        <p>Generic programmes are built around ideal conditions. Four or five days a week, an hour per session, no other physical demands on the body. For most people training around full time responsibilities, those conditions do not exist.</p>
+        <p><strong>When the programme does not fit your life, you do not follow the programme.</strong> You skip sessions. You do half of it. You start again on Monday for the third time this month. It is not a motivation problem. It is a mismatch between the programme and the person following it.</p>
+        <h3>What a programme built for your life looks like</h3>
+        <ul>
+          <li>It is built around the days and hours you actually have, not an ideal week</li>
+          <li>Every session has a clear purpose so nothing feels like filler</li>
+          <li>The volume is appropriate for your recovery capacity, not a professional athlete</li>
+          <li>Missing one session does not break the whole structure</li>
+        </ul>
+        <p>Three well-designed sessions a week will outperform five mediocre ones almost every time. The goal is not more training. It is better training, fitted properly to the life around it.</p>
+        <blockquote><p>The people I work with are not short on commitment. They are short on a programme that was built for them.</p></blockquote>
+      </div>
+      <div class="post-cta">
+        <div class="post-cta-text">
+          <h4>See it in practice</h4>
+          <p>Your first week is free. No card required.</p>
+        </div>
+        <a class="btn-primary" href="#" onclick="showPage('contact')">Start free week</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer style="margin-top:80px">
+    <div class="footer-brand">PRO.AM</div>
+    <div class="footer-links">
+      <a href="#" onclick="showPage('hero')">Home</a>
+      <a href="#" onclick="showPage('services')">Services</a>
+      <a href="#" onclick="showPage('about')">About</a>
+      <a href="#" onclick="showPage('blog')">Blog</a>
+      <a href="#" onclick="showPage('contact')">Contact</a>
+    </div>
+    <div class="footer-copy">© 2025 Professional Amateur</div>
+  </footer>
+</div>
+
+<script>
+// ── PAGE NAVIGATION ───────────────────────────────────────────────────────────
+function showPage(id) {
+ document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ window.scrollTo(0, 0);
+ setTimeout(triggerAnimations, 100);
+}
+
+// ── SCROLL NAV ────────────────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+ document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ── MOBILE NAV ────────────────────────────────────────────────────────────────
+function openMobileNav() { document.getElementById('mobileNav').classList.add('open'); }
+function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+// ── SCROLL ANIMATIONS ─────────────────────────────────────────────────────────
+function triggerAnimations() {
+ document.querySelectorAll('.fade-up').forEach((el, i) => {
+  setTimeout(() => el.classList.add('visible'), i * 100);
+ });
+}
+triggerAnimations();
+
+
+// ── BLOG POST NAVIGATION ──────────────────────────────────────────────────────
+function showPost(postId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('post-view').classList.add('active');
+  document.querySelectorAll('[id$="-content"]').forEach(p => p.style.display = 'none');
+  document.getElementById(postId + '-content').style.display = 'block';
+  window.scrollTo(0, 0);
+  setTimeout(triggerAnimations, 100);
+}
+
+// ── FORM SUBMIT ───────────────────────────────────────────────────────────────
+async function handleSubmit(e) {
+ e.preventDefault();
+ const form = document.getElementById('intakeForm');
+ const btn = form.querySelector('button[type="submit"]');
+ btn.textContent = 'SENDING...';
+ btn.disabled = true;
+ try {
+  const res = await fetch(form.action, {
+   method: 'POST',
+   body: new FormData(form),
+   headers: { 'Accept': 'application/json' }
+  });
+  if (res.ok) {
+   form.style.display = 'none';
+   document.getElementById('formSuccess').style.display = 'block';
+  } else {
+   btn.textContent = 'SOMETHING WENT WRONG, TRY AGAIN';
+   btn.disabled = false;
+  }
+ } catch {
+  btn.textContent = 'SOMETHING WENT WRONG, TRY AGAIN';
+  btn.disabled = false;
+ }
+}
+</script>
+</body>
+</html>
